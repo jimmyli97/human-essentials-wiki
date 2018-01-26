@@ -1,7 +1,7 @@
 This document is to establish some consistent norms that will be used throughout the application. Using consistent language and decoration reduces cognitive load for the users and accelerates on-boarding.
 
 # Iconography
-Buttons and UI components should use supplemental icons (in addition to text) wherever possible and appropriate. When possible, reinforce existing choices (ie. the *Create* actions prepend the `plus` icon; if you add a *Create* button, yours should too)
+Buttons and UI components should use supplemental icons (in addition to text) wherever possible and appropriate. When possible, reinforce existing choices (ie. the buttons that lead to `new` actions prepend the `plus` icon; if you add a button that leads to a `new` action, yours should too)
 
 # Table Rows
 Table rows that offer contextual actions for each row should have an action buttons column, set to the far-right. 
