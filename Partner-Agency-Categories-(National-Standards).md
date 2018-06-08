@@ -1,5 +1,5 @@
-CAREER - Career Technical Training
-ABUSE - Child Abuse Resource Center
+# CAREER - Career Technical Training
+# ABUSE - Child Abuse Resource Center
 CHURCH - Church Outreach Ministry
 CDC - Community Development Corporation
 HEALTH - Community Health Program
