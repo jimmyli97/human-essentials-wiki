@@ -6,3 +6,4 @@ Diaperbase is an inventory system for diaper banks, to aid them in tracking thei
 * See [CONTRIBUTING.md](https://github.com/rubyforgood/diaper/blob/master/CONTRIBUTING.md) to learn how to contribute to the code!
 * We use [Github Issues](https://github.com/rubyforgood/diaper/issues) to track problems and requests
 * We use [Github Pull Requests](https://github.com/rubyforgood/diaper/pulls) to submit and review code changes
+* Some realtime project coordination is also done on the [Ruby For Good Slack](https://rubyforgood.slack.com)
