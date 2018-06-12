@@ -1,14 +1,14 @@
 ## Production Infrastructure
 
-* Single server hosted on (?)
+* Single server hosted on Linode but will be moving to sponsored hosting on Azure before going live.
 * PostgresDB
 * Puma
 * Instance is used for all Diaper Banks (hosted service, not federated or self-hosted)
 
 ## Production Activity
 
-* Right now we are in beta-testing with 5 (?) diaper banks
-* These diaper banks are (?) trying to use the system with real-world data
+* Right now we are in beta-testing with 5 diaper banks -- Portland Diaper Bank, Sweet Cheeks Diaper Bank, Junior League of Boca Raton, Helping Mamas, Moms Helping Moms Foundation
+* These diaper banks are trying to use the system with real-world data
 * That means the system is IN PRODUCTION and is the source-of-truth for some users
 * There are no particular times of usage, though likely US-daylight
 * Q: How do we communicate with users, like if we needed downtime?
@@ -28,12 +28,12 @@
 
 ## Monitoring, Alerting, Metrics
 
-* Bugsnag (?)
+* Bugsnag (we have an OSS account, contact an admin for access to it)
 * [Skylight](https://oss.skylight.io/app/applications/LrXHcxDK7Be9/recent/6h/endpoints) - Monitoring service
 
 ## Production Debugging
 
-* A few admins (a-a-ron, sean, who else (?)) have production shell access
+* A few admins (a-a-ron, sean, jcavena) have production shell access
 
 ## Disaster Recovery
 
