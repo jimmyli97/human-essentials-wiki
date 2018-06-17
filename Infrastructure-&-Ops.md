@@ -1,6 +1,7 @@
 ## Production Infrastructure
 
-* Single server hosted on Linode but will be moving to sponsored hosting on Azure before going live.
+* Single server hosted on Linode but will be moving to sponsored hosting on Azure before going General Availability
+* Rails
 * PostgresDB
 * Puma
 * Instance is used for all Diaper Banks (hosted service, not federated or self-hosted)
@@ -18,7 +19,7 @@
 
 * TravisCI deploys master
   * Triggered by merge into master
-  * Runs capistrano deploy if the rest of the tests pass
+  * Runs Capistrano deploy if the rest of the tests pass
   * See [.travis.yml](https://github.com/rubyforgood/diaper/blob/master/.travis.yml)
 * Capistrano is used to perform the deploy
   * See [config/deploy.rb](https://github.com/rubyforgood/diaper/blob/master/config/deploy.rb) for general config
