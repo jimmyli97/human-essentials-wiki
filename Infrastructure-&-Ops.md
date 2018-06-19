@@ -35,6 +35,7 @@
 ## Production Debugging
 
 * A few admins (a-a-ron, sean, jcavena) have production shell access
+* We have the `capistrano-rails-console` gem installed. This allows us to run `cap production rails:console` which opens a production rails console from your local command line.
 
 ## Disaster Recovery
 
