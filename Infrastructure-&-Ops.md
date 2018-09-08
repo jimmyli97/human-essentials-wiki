@@ -26,6 +26,7 @@
   * See [config/deploy/production.rb](https://github.com/rubyforgood/diaper/blob/master/config/deploy/production.rb) for production config
   * Single server for DB and web server (Puma)
   * Uses hard-coded ip address
+  * We have the ability to deploy from a branch `cap production deploy BRANCH=branch_to_deploy`
 
 ## Monitoring, Alerting, Metrics
 
