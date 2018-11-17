@@ -1,6 +1,6 @@
 ## Production Infrastructure
 
-* Single server hosted on Linode but will be moving to sponsored hosting on Azure before going General Availability
+* Single server hosted on Azuresponsored hosting with a staging server on Linode.
 * Rails
 * PostgresDB
 * Puma
@@ -8,7 +8,7 @@
 
 ## Production Activity
 
-* Right now we are in beta-testing with 5 diaper banks -- Portland Diaper Bank, Sweet Cheeks Diaper Bank, Junior League of Boca Raton, Helping Mamas, Moms Helping Moms Foundation
+* We're in production out of beta!
 * These diaper banks are trying to use the system with real-world data
 * That means the system is IN PRODUCTION and is the source-of-truth for some users
 * There are no particular times of usage, though likely US-daylight
@@ -18,7 +18,7 @@
 ## Deployment
 
 * TravisCI deploys master
-  * Triggered by merge into master
+  * Triggered by merge into master -- now that we're in production, auto deploys go to our staging server (diaperbase.org.) Deploying to production requires tagging a release.
   * Runs Capistrano deploy if the rest of the tests pass
   * See [.travis.yml](https://github.com/rubyforgood/diaper/blob/master/.travis.yml)
 * Capistrano is used to perform the deploy
