@@ -36,19 +36,47 @@ A Diaperbank will acquire inventory primarily through one of two methods: a **Do
 
 **Diaperdrives** are like food drives -- a campaign, typically with advertisement to the community, for the general public to provide needed items to the diaperbank. Sometimes people will also donate inventory at a local **Donation Site**, outside of a Diaperdrive. Other than those two primary methods, there is a miscellaneous classification for diapers that are received (but not purchased) through other means.
 
+Donations can also dropped off at **Donation Sites**. These are locations that have been designated as places where people can drop off donations.
+
+Donations that don't fit into either of those types are classified as "Miscellaneous Donations."
+
+Both Donation Sites and Diaper Drives have to be created beforehand, but can be used repeatedly after that.
+
+### Retention
+All inventory is physically stored at **Storage Locations**. This is one area where the application is particularly useful, as some storage locations accrue large quantities of inventory over time. Each storage location can contain any number of items or types of items, and if a diaper bank has multiple storage locations, it is possible for the same item type to exist at multiple locations. 
+
+Sometimes, the diaper banks will need to make a correction, though this application calls them **Adjustment**s.
+
+When a diaper bank wants to move inventory from one storage location to another, they do so with a **Transfer**.
+
+### Output
+When inventory leaves a diaper bank, it does so via a **Distribution**. These are either created implicitly from inbound Partner Base **Requests**, or created explicitly via the menu interface. When they are created explicitly, they pull from a single designated Storage Location, and are built in a similar fashion to Donations, Adjustments, Transfers, etc -- items are added and quantities are specified.
+
+Distributions can be exported as PDFs, which diaper banks can use as printable manifests for the packages sent to the community partner.
+
 # Appendix
 
 ## Definitions & Terms
 
+**Adjustment** - When a diaper bank has to make a change to its on-hand inventory totals, it creates an adjustment. A single adjustment can record the change of quantities for multiple different kinds of items. These adjustments create a record internally for transaction and are the only interface for an organization to make direct changes to their inventories. They are internally modeled as `Adjustment`.
+
 **Diaperdrive** - This is similar to a fund-raiser or food-drive. It is an often advertised campaign to the community with a declared intention to encourage donations from community members. Sometimes the Diaperdrive is held by individuals or organizations that are not the Diaperbank themselves. Diaperbanks like to track data on how successful their diaperdrives are, so we provide a means to track it. Internally, this is represented by the `DiaperDriveParticipant` model.
 
-**Donation** - This is one of the two ways that inventory is added to a Diaperbank. Donations are inventory that is provided at no cost to the Diaperbank. Internally, they are represented by the `Donation` model.
+**Distribution** - These are how diaper banks issue inventory to community partners. A distribution can sometimes be connected with a request from Partner Base, but this isn't strictly required. The distribution builds a manifest of items & quantities and ultimately handles the removal of inventory in a transaction. It's the primary interface for reducing inventory.
+
+**Donation** - This is one of the two ways that inventory is added to a Diaperbank. Donations are inventory that is provided at no cost to the Diaperbank. Internally, they are represented by the `Donation` model. These are the primary interface for adding inventory to a diaper bank. When a donation completes, it creates a transaction to add the inventory.
 
 **Donation Site** - These are physical locations where the general public can bring needed inventory to be donated to the Diaperbank. They have a geographical address and are generally named. Internally, they are represented by the `DonationSite` model.
 
 **Partner** - This refers to a "Community Partner", an individual or organization in the surrounding community that works directly with the families, tracks their data, and schedules distributions of diapers and sanitary supplies. Sometimes this will be referred to as a "Partner Organization" or "Community Partner". Partners request disbursements of inventory from a Diaperbank, the Diaperbank fulfills those requests, and then the Partner provides them to the families.
 
 **Purchase** - This is inventory that was purchased for cash by the diaperbank, directly. We track these so that the diaperbanks can report how much money they spent directly on inventory. Internally, these are represented by the `Purchase` model.
+
+**Request** - Requests are initially created by the Partner Base application and are sent via an API. When they are received by Diaper Base, they are tracked internally and are transformed into Distributions. These are represented internally by the `Request` model.
+
+**Storage Location** - These are warehouses of physical inventory, though they can be as small as someone's closet or storage room in their apartment, or as big as an actual building. Internally, they are represented by the `StorageLocation` model. Storage Locations are unique to each organization and are not shared across organizations.
+
+**Transfer** - These are transactional objects created to track the movement of inventory from one Storage Location to another, and to leave a paper trail behind. They are internally represented by the model `Transfer`.
 
 ## Partnerbase
 [Partnerbase](/rubyforgood/partner) is a companion application built in-tandem with this application. It interfaces directly with the Community Partners that work with the recipients of the sanitary supplies. Both applications are dependent on one another, but each address separate needs and so are maintained separately. They connect via an API. Please see the Partnerbase repository for more information.
