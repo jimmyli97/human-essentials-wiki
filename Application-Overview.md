@@ -40,7 +40,7 @@ Donations can also dropped off at **Donation Sites**. These are locations that h
 
 Donations that don't fit into either of those types are classified as "Miscellaneous Donations."
 
-Both Donation Sites and Diaper Drives have to be created beforehand, but can be used repeatedly after that.
+Both Donation Sites and Diaper Drives have to be created in the application beforehand, but can be used repeatedly after that.
 
 ### Retention
 All inventory is physically stored at **Storage Locations**. This is one area where the application is particularly useful, as some storage locations accrue large quantities of inventory over time. Each storage location can contain any number of **Items** or types of items, and if a diaper bank has multiple storage locations, it is possible for the same item type to exist at multiple locations. 
