@@ -70,11 +70,11 @@ Every organization has a user who is the "organization admin", typically the fir
 ## Items
 These are an important, but perhaps not immediately intuitive, aspect of the application. Items are, for example, "3T Diapers", or "Baby Wipes", or "Boys Batman 4T Diapers" -- they can be as generic or as specific as necessary, and organizations have full control over what items they use in their instance of DiaperBase.
 
-Every Item is also connected with a **Canonical Item**, which might also be called a "Base Item" (this might be a permanent name change in the near future). The Canonical Items are all very generic and refer to a functional commonality -- "3T Diapers", "Huggies 3T Diapers", "Boys Batman 3T Diapers" would all have "3T Diapers" as their Canonical Item base. 
+Every Item is also connected with a "Base Item". The Base Items are all very generic and refer to a functional commonality -- "3T Diapers", "Huggies 3T Diapers", "Boys Batman 3T Diapers" would all have "3T Diapers" as their Base Item base. 
 
-For a much more detailed and technical description of how these work, see the Wiki article on [Canonical Items](/rubyforgood/diaper/wiki/Canonical-Items).
+For a much more detailed and technical description of how these work, see the Wiki article on [Base Items](/rubyforgood/diaper/wiki/Base-Items).
 
-Canonical Items are only really noticeable in two places: When creating a new item, and when communicating between PartnerBase and DiaperBase. Aside from those, they're more of a concern of the `SiteAdmin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
+Base Items are only really noticeable in two places: When creating a new item, and when communicating between PartnerBase and DiaperBase. Aside from those, they're more of a concern of the `SiteAdmin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
 
 ### Item "Boxes" (LineItems & InventoryItems)
 Because Items are only defining *types* of physical inventory, we need a vehicle to track *quantities*. This application does this by piggybacking on the association. We currently use two different kinds of associations: **Line Items** and **Inventory Items**. The main practical difference between the two is that the quantities of "Line Items" are non-zero integers and the quantities of "Inventory Items" are natural numbers.
@@ -108,16 +108,16 @@ Suggested uses include:
 Organization barcodes always take precedence when they do a lookup.
 
 ### Global Barcodes
-These are barcodes that act as "fall-throughs" and will generally be used to track product UPCs and map them to the appropriate Canonical Item type. (For example: pointing the UPC for 40 Huggies 3T, 48 Pampers 3T, and 24 Luvs 3T diaper packs all to the "3T Diapers" Canonical Item type). These are only entered by Site Administrators, and must always point to a Canonical Item type.
+These are barcodes that act as "fall-throughs" and will generally be used to track product UPCs and map them to the appropriate Base Item type. (For example: pointing the UPC for 40 Huggies 3T, 48 Pampers 3T, and 24 Luvs 3T diaper packs all to the "3T Diapers" Base Item type). These are only entered by Site Administrators, and must always point to a Base Item type.
 
 ### Barcode Retrieval
-Barcode records are either connected to an organization and an `Item`, or they are labeled "global" and connected to a `CanonicalItem`. When a lookup is requested, it will look up the barcode (by its value) with this order of priority (this was established in [#593](/rubyforgood/diaper/issues/593)):
+Barcode records are either connected to an organization and an `Item`, or they are labeled "global" and connected to a `BaseItem`. When a lookup is requested, it will look up the barcode (by its value) with this order of priority (this was established in [#593](/rubyforgood/diaper/issues/593)):
 
  1. Does the organization have its own barcode defined with this value? (yields an `Item`)
- 2. Is there a global barcode defined for this value? (yields a `CanonicalItem`)
+ 2. Is there a global barcode defined for this value? (yields a `BaseItem`)
  3. Prompt the user to create a new barcode record using this value
 
-For the second item, after the `CanonicalItem` is retrieved, it consults back to the Organization and finds the oldest `Item` (for that organization) that uses the retrieved `CanonicalItem`.
+For the second item, after the `BaseItem` is retrieved, it consults back to the Organization and finds the oldest `Item` (for that organization) that uses the retrieved `BaseItem`.
 
 # Appendix
 
@@ -125,7 +125,7 @@ For the second item, after the `CanonicalItem` is retrieved, it consults back to
 
 **Adjustment** - When a diaper bank has to make a change to its on-hand inventory totals, it creates an adjustment. A single adjustment can record the change of quantities for multiple different kinds of items. These adjustments create a record internally for transaction and are the only interface for an organization to make direct changes to their inventories. They are internally modeled as `Adjustment`.
 
-**Canonical Item** - This is the abstract base type for an Item object, and is used as the source of replication when a new organization is created. Every Item must inherit from a Canonical Item. Canonical Items create an implicit common language that can be used across both DiaperBase and PartnerBase.
+**Base Item** - This is the abstract base type for an Item object, and is used as the source of replication when a new organization is created. Every Item must inherit from a Base Item. Base Items create an implicit common language that can be used across both DiaperBase and PartnerBase.
 
 **Diaperdrive** - This is similar to a fund-raiser or food-drive. It is an often advertised campaign to the community with a declared intention to encourage donations from community members. Sometimes the Diaperdrive is held by individuals or organizations that are not the Diaperbank themselves. Diaperbanks like to track data on how successful their diaperdrives are, so we provide a means to track it. Internally, this is represented by the `DiaperDriveParticipant` model.
 
