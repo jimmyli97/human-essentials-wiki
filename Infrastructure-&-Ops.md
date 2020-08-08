@@ -18,7 +18,7 @@
 ## Deployment
 
 * TravisCI deploys master
-  * Triggered by merge into master -- now that we're in production, auto deploys go to our staging server (diaperbase.org.) Deploying to production requires tagging a release and then manually deploying it with capitrano.
+  * Triggered by merge into master -- now that we're in production, auto deploys go to our staging server (diaperbase.org.) Deploying to production requires tagging a release and then manually deploying it with Capistrano.
   * Runs Capistrano deploy if the rest of the tests pass
   * See [.travis.yml](https://github.com/rubyforgood/diaper/blob/master/.travis.yml)
 * Capistrano is used to perform the deploy
