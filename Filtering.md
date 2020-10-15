@@ -72,8 +72,7 @@ The filters are generally done in a separate block at the top. There was a conve
               <div class="row"> <!-- this is template-dependent -->
                 <% if @storage_locations.present? %>
                   <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12"> <!-- this too -->
-                    <%= label_tag "by Storage Location" %>
-                    <%= collection_select(:filters, :at_storage_location, @storage_locations || {}, :id, :name, {include_blank: true, selected: @selected_storage_location}, class: "form-control") %>
+                    <!-- filter code goes here! -->
                   </div>
                 <% end %>
               <!-- ... -->
@@ -82,12 +81,31 @@ The filters are generally done in a separate block at the top. There was a conve
 <% end %>
 ```
 
-The key line there is the collection select:
+In the noted collection, put one of these methods, found in `app/helpers/filter_helper.rb`:
 
 ```ruby
-<%= collection_select(:filters, :at_storage_location, @storage_locations || {}, :id, :name, {include_blank: true, selected: @selected_storage_location}, class: "form-control") %>
+  <%= filter_select(label: "Filter by name", scope: :by_name, collection: @names, key: :id, value: :name, selected: @selected_name) %>
 ```
 
-The first 2 parameters ensure it goes to the correct params hash. The third parameter is the filterable selections.
+These arguments are optional:
 
-You can use essentially any kind of field and scope combination, for this, not just collection selects.
+ - `label` will make its guess based on the scope if you don't provide a value
+ - `key` and `value` default to `:id` and `:name`
+ - `selected` is optional
+
+```ruby
+  <%= filter_text(label: "Filter for names similar to", scope: :like_name, selected: @selected_like_name) %>
+```
+
+These arguments are optional:
+
+ - `label` will make its guess based on the scope if you don't provide a value
+ - `selected` is optional
+
+```ruby
+  <%= filter_checkbox(label: "Include inactive users", scope: :include_inactive, selected: @include_inactive) %>
+```
+
+These arguments are optional:
+
+ - `selected` is optional
