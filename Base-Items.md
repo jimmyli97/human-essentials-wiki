@@ -27,7 +27,7 @@ A `BaseItem` instance serves two primary purposes, architecturally:
  1. It serves as a "parent" to new `Item`s created by an organization
 
 ## As a Template
-*cf. [/db/base_items.json](https://github.com/rubyforgood/diaper/blob/master/db/base_items.json)*
+*cf. [/db/base_items.json](https://github.com/rubyforgood/diaper/blob/main/db/base_items.json)*
 
 When an organization is created, a method runs that iterates over all `BaseItem`s and replicates them into `Item` records, using the same name. This allows a generic basis for a new organization to begin using the application, similar to "seeding" data. An organization can then edit, delete, or just use those records as it sees fit, without any worry that it will be disrupting other organizations.
 
