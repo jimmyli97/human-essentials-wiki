@@ -7,3 +7,5 @@ DiaperBase is an inventory management system (IMS) for diaper banks, used to aid
 * We use [Github Issues](https://github.com/rubyforgood/diaper/issues) to track problems and requests.
 * We use [Github Pull Requests](https://github.com/rubyforgood/diaper/pulls) to submit and review code changes.
 * Some realtime project coordination is also done on the [Ruby For Good Slack](https://rubyforgood.slack.com). Grab an [invite](https://rubyforgood.herokuapp.com)!
+
+Check out [the visual history of our build process](https://www.visualsource.net/repo/github.com/rubyforgood/diaper), presented in a cool short video!
