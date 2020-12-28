@@ -1,9 +1,9 @@
 Welcome to the diaper wiki!
 
-Diaperbase is an inventory system for diaper banks, to aid them in tracking their inventory and providing statistics about their inventory flows. http://diaperbase.org/
+DiaperBase is an inventory management system (IMS) for diaper banks, used to aid them in tracking their inventory and providing statistics about their inventory flows. Visit the app's home page at [http://diaperbase.org/](http://diaperbase.org/).
 
-* See [README.md](https://github.com/rubyforgood/diaper/blob/main/README.md) for an overview of the project
+* See [README.md](https://github.com/rubyforgood/diaper/blob/main/README.md) for an overview of the project.
 * See [CONTRIBUTING.md](https://github.com/rubyforgood/diaper/blob/main/CONTRIBUTING.md) to learn how to contribute to the code!
-* We use [Github Issues](https://github.com/rubyforgood/diaper/issues) to track problems and requests
-* We use [Github Pull Requests](https://github.com/rubyforgood/diaper/pulls) to submit and review code changes
-* Some realtime project coordination is also done on the [Ruby For Good Slack](https://rubyforgood.slack.com) which you can grab an invite for [here](https://rubyforgood.herokuapp.com)
+* We use [Github Issues](https://github.com/rubyforgood/diaper/issues) to track problems and requests.
+* We use [Github Pull Requests](https://github.com/rubyforgood/diaper/pulls) to submit and review code changes.
+* Some realtime project coordination is also done on the [Ruby For Good Slack](https://rubyforgood.slack.com). Grab an [invite](https://rubyforgood.herokuapp.com)!
