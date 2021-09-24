@@ -62,7 +62,7 @@ This section is a more detailed, and more technical, explanation of how the appl
 ## Multi-Tenancy
 This application is multi-tenant -- that is, each Diaper Bank (used interchangeably with **Organization**) has its own templated "section" of the application, and may act in that section without concern that its changes will affect other organizations (and vice versa).
 
-When a user is signed-in, they are automatically "jailed" to their organizational space, as indicated by the URL (which features a short-code of their organization in it).
+When a user is signed-in, they are automatically "isolated" to their organizational space, as indicated by the URL (which features a short-code of their organization in it).
 
 ### Users
 Every organization has a user who is the "organization admin", typically the first user to sign up for that organization. This user can perform administrative privileges on the organization, such as changing the descriptive details, inviting other users, etc. Additional users are able to use most of the functions of their organizational space.
