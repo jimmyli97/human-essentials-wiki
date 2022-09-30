@@ -123,11 +123,13 @@ For the second item, after the `BaseItem` is retrieved, it consults back to the 
 
 ## Definitions & Terms
 
+(Note - in the following sections, the term "diaper bank" and "organization" are used interchangably.
+
 **Adjustment** - When a diaper bank has to make a change to its on-hand inventory totals, it creates an adjustment. A single adjustment can record the change of quantities for multiple different kinds of items. These adjustments create a record internally for transaction and are the only interface for an organization to make direct changes to their inventories. They are internally modeled as `Adjustment`.
 
-**Base Item** - This is the abstract base type for an Item object, and is used as the source of replication when a new organization is created. Every Item must inherit from a Base Item. Base Items create an implicit common language that can be used across both DiaperBase and PartnerBase.
+**Base Item** - This is the abstract base type for an Item object, and is used as the source of replication when a new organization is created. Every Item must inherit from a Base Item. 
 
-**Diaperdrive** - This is similar to a fund-raiser or food-drive. It is an often advertised campaign to the community with a declared intention to encourage donations from community members. Sometimes the Diaperdrive is held by individuals or organizations that are not the Diaperbank themselves. Diaperbanks like to track data on how successful their diaperdrives are, so we provide a means to track it. Internally, this is represented by the `DiaperDriveParticipant` model.
+**Diaper Drive** - This is similar to a fund-raiser or food-drive. It is an often advertised campaign to the community with a declared intention to encourage donations from community members. Sometimes the Diaperdrive is held by individuals or organizations that are not the Diaperbank themselves. Diaperbanks like to track data on how successful their diaperdrives are, so we provide a means to track it. Internally, this is represented by the `DiaperDriveParticipant` model.
 
 **Distribution** - These are how diaper banks issue inventory to community partners. A distribution can sometimes be connected with a request from Partner Base, but this isn't strictly required. The distribution builds a manifest of items & quantities and ultimately handles the removal of inventory in a transaction. It's the primary interface for reducing inventory.
 
@@ -137,9 +139,11 @@ For the second item, after the `BaseItem` is retrieved, it consults back to the 
 
 **Inventory Item** - These are an abstract "box" that records an item type with a quantity, and is generally held by a Storage Location. It is internally represented by the `InventoryItem` model. (See also: Line Item)
 
-**Items** - These are the data abstractions of real-world objects. They are internally represented with the `Item` model. An instance of `Item` is owned by an Organization. Items do not have quantities themselves, the quantities are tracked in the associative records (such as `LineItem` or `InventoryItem`)
+**Items** - These are the data abstractions of real-world product *types*. They are internally represented with the `Item` model. An instance of `Item` is owned by an Organization. Items do not have quantities themselves, the quantities are tracked in the associative records (such as `LineItem` or `InventoryItem`). Items are created from `BaseItems` when new Organizations are created.
 
-**Line Item** - These are an abstract "box" that records an item type with a quantity, and is generally held by a model that is transporting inventory through the flow of the system. It is internally represented with the `LineItem` model. (See also: Inventory Item)
+**Kit** - A kit can be considered a package of products that can be tracked together. Each kit has a single associated `Item` which can be used as a `LineItem` or `InventoryItem`. Kits can be assigned to storage locations; when this is done, the products within the kit are removed from that storage location and the kit itself is added.
+
+**Line Item** - These are an abstract "box" that records an item type with a quantity, and is generally held by a model that is transporting inventory through the flow of the system (i.e. it is usually used when transferring inventory from one place to another, such as via donations). It is internally represented with the `LineItem` model. (See also: Inventory Item)
 
 **Organization** - The software abstraction of a Diaper Bank, itself, and used interchangeably as a term. Internally represented with the `Organization` model.
 
