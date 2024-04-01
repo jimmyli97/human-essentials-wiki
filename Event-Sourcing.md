@@ -2,7 +2,7 @@ Human Essentials makes use of an [event sourcing](https://microservices.io/patte
 
 ## Before Event World
 
-Our previous implementation used the `InventoryItem` class to track inventory. This means that any time something like a donation was changed, we had to look at the current inventory and do things like remove the inventory that was added during the donation, then add it back after the changes were made. This caused particular issues around audits, which allow users to force inventory values to a particular number. Making changes **now** to a donation that happened *before* the audit caused all sorts of weirdness.
+Our previous implementation used the `InventoryItem` class to track inventory. This means that any time something like a donation was changed, we had to look at the current inventory and do things like remove the inventory that was added during the donation, then add it back after the changes were made. This caused particular issues around audits, which allow users to force inventory values to a particular number. Making changes **now** to a donation that happened *before* the audit caused all sorts of weirdness. It also made kit allocation / deallocation extra complex.
 
 Events allow us to focus only on "what happened", and update our business logic as needed to get the correct values out of them.
 
