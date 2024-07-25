@@ -1,4 +1,4 @@
-This document is intended for general reference, but primarily for facilitating on-boarding of developers that are new to Diaperbase. Please feel free to contribute to this document, but bear in mind:
+This document is intended for general reference, but primarily for facilitating on-boarding of developers that are new to Human Essentials. Please feel free to contribute to this document, but bear in mind:
 
  - The purpose of this document is to provide a preliminary understanding of how this app functions
  - The audience is "Rails developers", so it's ok to use Rails jargon, but concepts related to diaperbanking may need to be explained
@@ -12,7 +12,7 @@ One of the biggest problems consistently faced by Diaperbanks is the means to tr
 # Purpose
 This application is a solution that is custom-tailored around the specific needs of Diaperbanks. We initially worked directly with several diaperbanks to ascertain exactly how we could best meet their needs with software, and we offer it to them for free, since many diaperbanks are volunteer-driven and/or grant-funded, and any money they would spend on an application is money diverted from swaddling children.
 
-The scope of this application (Diaperbase) is:
+The scope of this application (Human Essentials) is:
 
  - tracking incoming, outgoing, and retained inventory in a robust manner
  - providing reports and status of the inventory to the diaperbanks
@@ -68,11 +68,11 @@ When a user is signed-in, they are automatically "isolated" to their organizatio
 Every organization has a user who is the "organization admin", typically the first user to sign up for that organization. This user can perform administrative privileges on the organization, such as changing the descriptive details, inviting other users, etc. Additional users are able to use most of the functions of their organizational space.
 
 ## Items
-These are an important, but perhaps not immediately intuitive, aspect of the application. Items are, for example, "3T Diapers", or "Baby Wipes", or "Boys Batman 4T Diapers" -- they can be as generic or as specific as necessary, and organizations have full control over what items they use in their instance of DiaperBase.
+These are an important, but perhaps not immediately intuitive, aspect of the application. Items are, for example, "3T Diapers", or "Baby Wipes", or "Boys Batman 4T Diapers" -- they can be as generic or as specific as necessary, and organizations have full control over what items they use in their instance of Human Essentials.
 
 Every Item is also connected with a "Base Item". The Base Items are all very generic and refer to a functional commonality -- "3T Diapers", "Huggies 3T Diapers", "Boys Batman 3T Diapers" would all have "3T Diapers" as their Base Item base. 
 
-For a much more detailed and technical description of how these work, see the Wiki article on [Base Items](/rubyforgood/diaper/wiki/Base-Items).
+For a much more detailed and technical description of how these work, see the Wiki article on [Base Items](/rubyforgood/human-essentials/wiki/Base-Items).
 
 Base Items are only really noticeable in two places: When creating a new item, and when communicating between PartnerBase and DiaperBase. Aside from those, they're more of a concern of the `SiteAdmin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
 
@@ -84,13 +84,13 @@ These are the most common, and are used polymorphically for numerous models. The
 
 Line Items are used in Donations, Distributions, Adjustments, Transfers, Purchases, and generally any place where inventory is being moved somehow.
 
-The behaviors of Line Items are consistent enough that the logic has been captured largely in the [Itemizable](/rubyforgood/diaper/blob/master/app/models/concerns/itemizable.rb) model concern.
+The behaviors of Line Items are consistent enough that the logic has been captured largely in the [Itemizable](/rubyforgood/human-essentials/blob/master/app/models/concerns/itemizable.rb) model concern.
 
 #### Inventory Items
 Inventory Items are similar to Line Items in their function, except it might be better to abstractly think of them as "Shelves" -- they are only found in Storage Locations, and are the resting place for inventory while it's retained by the Organization. Like Line Items, each Inventory Item can only track a single item type, but instead of associating with a polymorphic type, they only associate with Storage Locations (which hold physical inventory). They also differ in that they cannot be negative (you can't have -5 Baby Wipes, right?)
 
 ## Barcoding
-One of the reasons that DiaperBase was built was specifically to offer the ability to expedite inventory tracking with Barcodes. If you aren't familiar with the physical concept of how Barcodes function, read up on [Code 39](https://en.wikipedia.org/wiki/Code_39) specifically - this allows us to encode letters and/or numbers into machine readable barcodes.
+One of the reasons that Human Essentials was built was specifically to offer the ability to expedite inventory tracking with Barcodes. If you aren't familiar with the physical concept of how Barcodes function, read up on [Code 39](https://en.wikipedia.org/wiki/Code_39) specifically - this allows us to encode letters and/or numbers into machine readable barcodes.
 
 The TL;DR is that the barcode stripes correspond with actual letters and numbers, and when the barcode reader reads it, it just converts it into the alphanumeric version, and appends a carriage return.
 
