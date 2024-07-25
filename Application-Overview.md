@@ -17,7 +17,7 @@ The scope of this application (Human Essentials) is:
  - tracking incoming, outgoing, and retained inventory in a robust manner
  - providing reports and status of the inventory to the diaperbanks
  - facilitating their reporting needs (to both the NBDN as well as any Grantors and community partners)
- - providing fulfillment for incoming requests from community partners (via PartnerBase, see Appendix)
+ - providing fulfillment for incoming requests from community partners
 
 Things that are out of scope include:
  - Directly tracking data of families, children, and recipients of sanitary supplies
@@ -60,7 +60,7 @@ Community Partners then dispense the items they receive to the clients / familie
 This section is a more detailed, and more technical, explanation of how the application works, internally.
 
 ## Multi-Tenancy
-This application is multi-tenant -- that is, each Diaper Bank (used interchangeably with **Organization**) has its own templated "section" of the application, and may act in that section without concern that its changes will affect other organizations (and vice versa).
+This application is multi-tenant -- that is, each Diaper Bank (used interchangeably with **Organization**) and Partner has its own templated "section" of the application, and may act in that section without concern that its changes will affect other organizations (and vice versa).
 
 When a user is signed-in, they are automatically "isolated" to their organizational space, as indicated by the URL (which features a short-code of their organization in it).
 
@@ -74,7 +74,7 @@ Every Item is also connected with a "Base Item". The Base Items are all very gen
 
 For a much more detailed and technical description of how these work, see the Wiki article on [Base Items](/rubyforgood/human-essentials/wiki/Base-Items).
 
-Base Items are only really noticeable in two places: When creating a new item, and when communicating between PartnerBase and DiaperBase. Aside from those, they're more of a concern of the `SiteAdmin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
+Base Items are only really noticeable when creating a new item. Aside from that, they're more of a concern of the `SiteAdmin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
 
 ### Item "Boxes" (LineItems & InventoryItems)
 Because Items are only defining *types* of physical inventory, we need a vehicle to track *quantities*. This application does this by piggybacking on the association. We currently use two different kinds of associations: **Line Items** and **Inventory Items**. The main practical difference between the two is that the quantities of "Line Items" are non-zero integers and the quantities of "Inventory Items" are natural numbers.
@@ -147,7 +147,7 @@ For the second item, after the `BaseItem` is retrieved, it consults back to the 
 
 **Organization** - The software abstraction of a Diaper Bank, itself, and used interchangeably as a term. Internally represented with the `Organization` model.
 
-**Partner** - This refers to a "Community Partner", an individual or organization in the surrounding community that works directly with the families, tracks their data, and schedules distributions of diapers and sanitary supplies. Sometimes this will be referred to as a "Partner Organization" or "Community Partner". Partners request disbursements of inventory from a Diaperbank, the Diaperbank fulfills those requests, and then the Partner provides them to the families.
+**Partner** - This refers to a "Community Partner", an individual or organization in the surrounding community that works directly with the families, tracks their data, and schedules distributions of diapers and sanitary supplies. Sometimes this will be referred to as a "Partner Organization" or "Community Partner". Partners request disbursements of inventory from a Diaperbank, the Diaperbank fulfills those requests, and then the Partner provides them to the families. Internally represented with the `Partner` model.
 
 **Purchase** - This is inventory that was purchased for cash by the diaperbank, directly. We track these so that the diaperbanks can report how much money they spent directly on inventory. Internally, these are represented by the `Purchase` model.
 
@@ -157,5 +157,7 @@ For the second item, after the `BaseItem` is retrieved, it consults back to the 
 
 **Transfer** - These are transactional objects created to track the movement of inventory from one Storage Location to another, and to leave a paper trail behind. They are internally represented by the model `Transfer`.
 
-## Partnerbase
-[Partnerbase](/rubyforgood/partner) is a companion application built in-tandem with this application. It interfaces directly with the Community Partners that work with the recipients of the sanitary supplies. Both applications are dependent on one another, but each address separate needs and so are maintained separately. They connect via an API. Please see the Partnerbase repository for more information.
+## History
+**DiaperBase** - This was the old name for Human Essentials.
+
+**PartnerBase** - This was a separate app (archived [here](https://github.com/rubyforgood/partner)) for Partners before it was merged into the Human Essentials app. It was a companion application built in-tandem with this application. It interfaced directly with the Community Partners that work with the recipients of the sanitary supplies. 
