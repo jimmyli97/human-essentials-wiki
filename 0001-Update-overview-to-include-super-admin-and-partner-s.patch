@@ -1,0 +1,116 @@
+From 3d177fc2776610d2c68c34f71484d7fcc8040cc3 Mon Sep 17 00:00:00 2001
+From: Jimmy Li <jimmy.jiajian.li@gmail.com>
+Date: Thu, 25 Jul 2024 03:28:29 +0000
+Subject: [PATCH 1/2] Update overview to include super admin and partner scopes
+
+* Talks about super admin, diaper bank, and partner scopes
+* Remove additional references to partner base
+---
+ Application-Overview.md | 46 +++++++++++++++++++++++++----------------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
+
+diff --git a/Application-Overview.md b/Application-Overview.md
+index 8195a7a..c9820c9 100644
+--- a/Application-Overview.md
++++ b/Application-Overview.md
+@@ -12,18 +12,9 @@ One of the biggest problems consistently faced by Diaperbanks is the means to tr
+ # Purpose
+ This application is a solution that is custom-tailored around the specific needs of Diaperbanks. We initially worked directly with several diaperbanks to ascertain exactly how we could best meet their needs with software, and we offer it to them for free, since many diaperbanks are volunteer-driven and/or grant-funded, and any money they would spend on an application is money diverted from swaddling children.
+ 
+-The scope of this application (Human Essentials) is:
++This application handles inventory, donations, distribution, partner requests, and partner client data.
+ 
+- - tracking incoming, outgoing, and retained inventory in a robust manner
+- - providing reports and status of the inventory to the diaperbanks
+- - facilitating their reporting needs (to both the NBDN as well as any Grantors and community partners)
+- - providing fulfillment for incoming requests from community partners
+-
+-Things that are out of scope include:
+- - Directly tracking data of families, children, and recipients of sanitary supplies
+- - Directly working with community partners (see Appendix)
+- - Any eCommerce functions (including the purchasing or vending of inventory)
+- - Performing Human Resource functions
++Things that are out of scope include eCommerce and directly buying/selling supplies, or performing Human Resource functions
+ 
+ # Introduction
+ Before we delve into the inner-workings of how this application functions, we'll begin with a 10,000 foot view of how inventory moves through the application. This will include some key terms in **bold**, those terms will be further defined in the Appendix.
+@@ -50,7 +41,7 @@ Sometimes, the diaper banks will need to make a correction, though this applicat
+ When a diaper bank wants to move inventory from one storage location to another, they do so with a **Transfer**.
+ 
+ ### Output
+-When inventory leaves a diaper bank, it does so via a **Distribution**. These are either created implicitly from inbound Partner Base **Requests**, or created explicitly via the menu interface. When they are created explicitly, they pull from a single designated Storage Location, and are built in a similar fashion to Donations, Adjustments, Transfers, etc -- items are added and quantities are specified.
++When inventory leaves a diaper bank, it does so via a **Distribution**. These are either created implicitly from inbound Partner **Requests**, or created explicitly via the menu interface. When they are created explicitly, they pull from a single designated Storage Location, and are built in a similar fashion to Donations, Adjustments, Transfers, etc -- items are added and quantities are specified.
+ 
+ Distributions can be exported as PDFs, which diaper banks can use as printable manifests for the packages sent to the community partner.
+ 
+@@ -60,12 +51,31 @@ Community Partners then dispense the items they receive to the clients / familie
+ This section is a more detailed, and more technical, explanation of how the application works, internally.
+ 
+ ## Multi-Tenancy
+-This application is multi-tenant -- that is, each Diaper Bank (used interchangeably with **Organization**) and Partner has its own templated "section" of the application, and may act in that section without concern that its changes will affect other organizations (and vice versa).
++This application is multi-tenant -- that is, each Diaper Bank (used interchangeably in this documentation with **Organization**) and Partner has its own templated "section" of the application, and may act in that section without concern that its changes will affect other organizations (and vice versa).
+ 
+ When a user is signed-in, they are automatically "isolated" to their organizational space, as indicated by the URL (which features a short-code of their organization in it).
+ 
+ ### Users
+-Every organization has a user who is the "organization admin", typically the first user to sign up for that organization. This user can perform administrative privileges on the organization, such as changing the descriptive details, inviting other users, etc. Additional users are able to use most of the functions of their organizational space.
++There are three scopes/user roles in this application:
++
++#### Super Admin Scope
++ - manage diaper banks and their partners
++ - manage default items for diaper banks and partners
++ - manage user roles
++
++#### Organization/Diaper Bank Scope
++ - tracking incoming, outgoing, and retained inventory in a robust manner
++ - providing reports and status of the inventory to the diaperbanks
++ - facilitating their reporting needs (to both the NBDN as well as any Grantors and community partners)
++ - approving incoming requests from community partners and making distributions
++ - managing donation sources: product supply drives, donation sites, manufacturer donations, and vendor purchased donations
++ 
++Every Diaper Bank has a user who is the "organization admin", typically the first user to sign up. This user can perform administrative privileges in the Diaper Bank, such as changing the descriptive details, inviting other users, etc. Additional users are able to use most of the functions of their Diaper Bank space.
++
++ #### Partner Scope
++ - directly track data of families, children, and recipients of sanitary supplies
++ - make requests for supplies from their Diaper Bank
++ - track distributions (approved requests) from their Diaper Bank
+ 
+ ## Items
+ These are an important, but perhaps not immediately intuitive, aspect of the application. Items are, for example, "3T Diapers", or "Baby Wipes", or "Boys Batman 4T Diapers" -- they can be as generic or as specific as necessary, and organizations have full control over what items they use in their instance of Human Essentials.
+@@ -74,7 +84,7 @@ Every Item is also connected with a "Base Item". The Base Items are all very gen
+ 
+ For a much more detailed and technical description of how these work, see the Wiki article on [Base Items](/rubyforgood/human-essentials/wiki/Base-Items).
+ 
+-Base Items are only really noticeable when creating a new item. Aside from that, they're more of a concern of the `SiteAdmin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
++Base Items are only really noticeable when creating a new item. Aside from that, they're more of a concern of the `Super Admin` role. For the remainder of this document, when it refers to "Item", it is referring to `Item`, unless otherwise specified.
+ 
+ ### Item "Boxes" (LineItems & InventoryItems)
+ Because Items are only defining *types* of physical inventory, we need a vehicle to track *quantities*. This application does this by piggybacking on the association. We currently use two different kinds of associations: **Line Items** and **Inventory Items**. The main practical difference between the two is that the quantities of "Line Items" are non-zero integers and the quantities of "Inventory Items" are natural numbers.
+@@ -131,7 +141,7 @@ For the second item, after the `BaseItem` is retrieved, it consults back to the
+ 
+ **Diaper Drive** - This is similar to a fund-raiser or food-drive. It is an often advertised campaign to the community with a declared intention to encourage donations from community members. Sometimes the Diaperdrive is held by individuals or organizations that are not the Diaperbank themselves. Diaperbanks like to track data on how successful their diaperdrives are, so we provide a means to track it. Internally, this is represented by the `DiaperDriveParticipant` model.
+ 
+-**Distribution** - These are how diaper banks issue inventory to community partners. A distribution can sometimes be connected with a request from Partner Base, but this isn't strictly required. The distribution builds a manifest of items & quantities and ultimately handles the removal of inventory in a transaction. It's the primary interface for reducing inventory.
++**Distribution** - These are how diaper banks issue inventory to community partners. A distribution can sometimes be connected with a request from a Partner, but this isn't strictly required. The distribution builds a manifest of items & quantities and ultimately handles the removal of inventory in a transaction. It's the primary interface for reducing inventory.
+ 
+ **Donation** - This is one of the two ways that inventory is added to a Diaperbank. Donations are inventory that is provided at no cost to the Diaperbank. Internally, they are represented by the `Donation` model. These are the primary interface for adding inventory to a diaper bank. When a donation completes, it creates a transaction to add the inventory.
+ 
+@@ -145,13 +155,13 @@ For the second item, after the `BaseItem` is retrieved, it consults back to the
+ 
+ **Line Item** - These are an abstract "box" that records an item type with a quantity, and is generally held by a model that is transporting inventory through the flow of the system (i.e. it is usually used when transferring inventory from one place to another, such as via donations). It is internally represented with the `LineItem` model. (See also: Inventory Item)
+ 
+-**Organization** - The software abstraction of a Diaper Bank, itself, and used interchangeably as a term. Internally represented with the `Organization` model.
++**Organization** - Internally, the `Organization` model represents Diaper Banks only. Front-facing, Organization can refer to either a Diaper Bank or a Partner.
+ 
+ **Partner** - This refers to a "Community Partner", an individual or organization in the surrounding community that works directly with the families, tracks their data, and schedules distributions of diapers and sanitary supplies. Sometimes this will be referred to as a "Partner Organization" or "Community Partner". Partners request disbursements of inventory from a Diaperbank, the Diaperbank fulfills those requests, and then the Partner provides them to the families. Internally represented with the `Partner` model.
+ 
+ **Purchase** - This is inventory that was purchased for cash by the diaperbank, directly. We track these so that the diaperbanks can report how much money they spent directly on inventory. Internally, these are represented by the `Purchase` model.
+ 
+-**Request** - Requests are initially created by the Partner Base application and are sent via an API. When they are received by Diaper Base, they are tracked internally and are transformed into Distributions. These are represented internally by the `Request` model.
++**Request** - Requests are initially created by Partners. They are tracked internally and are transformed into Distributions. These are represented internally by the `Request` model.
+ 
+ **Storage Location** - These are warehouses of physical inventory, though they can be as small as someone's closet or storage room in their apartment, or as big as an actual building. Internally, they are represented by the `StorageLocation` model. Storage Locations are unique to each organization and are not shared across organizations.
+ 
+-- 
+2.45.2
+
