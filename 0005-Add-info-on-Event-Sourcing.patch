@@ -1,0 +1,44 @@
+From c20c4bdeebcb761e63e783ec775b698f52dc8bd5 Mon Sep 17 00:00:00 2001
+From: Jimmy Li <jimmy.jiajian.li@gmail.com>
+Date: Thu, 25 Jul 2024 03:04:10 +0000
+Subject: [PATCH 5/5] Add info on Event Sourcing
+
+* Add info on CRUD services and TestInventory
+* Add info on enabling Flipper flag
+---
+ Event-Sourcing.md | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/Event-Sourcing.md b/Event-Sourcing.md
+index 17c905d..3de2168 100644
+--- a/Event-Sourcing.md
++++ b/Event-Sourcing.md
+@@ -41,8 +41,23 @@ There is a special `View::Inventory` class which provides powerful querying and
+ 
+ In general, when working with inventory in controllers or model classes, `View::Inventory` is probably the class to use.
+ 
+-# Migration Plan
++## Services
++
++`app/services` folder contains various Create, Update, and Destroy services which handle event publishing and inventory changes.
++
++## RSpec Tests
++
++`spec/inventory.rb` contains the `TestInventory` class, which can quickly create and clear inventory when writing tests.
++
++# Feature Flag and Migration Plan
+ 
+ As of this writing, events are being *written* for all organizations, but not being *used* (e.g. on view pages or for validation). There is a flag called `events_read` which powers this behavior. It can be turned on per organization. We also run all our CI tests with the flag both on and off (flag off = "rspec", flag on = "rspec-events"). You can test with the flag on by setting the `EVENTS_READ` environment variable to `true`.
+ 
++To test on a locally running server:
++1) Go to localhost:3000/flipper
++2) Type in userid: admin, password: password 
++3) Click on "Add feature"
++4) Type in "read_events" without quotes and click "Add feature"
++5) Click "Fully Enable"
++
+ Once all bugs have been squashed, we will remove the flag and clean up / delete all references to `InventoryItem` in the codebase and database.
+\ No newline at end of file
+-- 
+2.45.2
+
